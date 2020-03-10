@@ -95,6 +95,35 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	url    = "/pub-sub/"
 	weight = 600
 
+[[menu.main]]
+	name   = "资源绑定"
+	identifier = "resource-binding"
+	url    = "/resource-binding/"
+	weight = 700
+
+[[menu.main]]
+	name   = "状态管理"
+	identifier = "state-management"
+	url    = "/state-management/"
+	weight = 800
+
+[[menu.main]]
+	name   = "分布式追踪"
+	identifier = "distributed-tracing"
+	url    = "/distributed-tracing/"
+	weight = 900
+
+[[menu.main]]
+	name   = "安全"
+	identifier = "secrets"
+	url    = "/secrets/"
+	weight = 1000
+
+[[menu.main]]
+	name   = "Actors"
+	identifier = "actors"
+	url    = "/actors/"
+	weight = 1100
 
 [blackfriday]
 	smartypants	= true
