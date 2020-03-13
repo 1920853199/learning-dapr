@@ -41,3 +41,9 @@ description : "Dapr信息"
 - [Mark Russinovich Presents the Future of Cloud Native Applications with OAM and dapr | BRK3098](https://www.youtube.com/watch?v=PpJhd-Jo4nM): 2020-01-14
 - [Dapr, Rudr, OAM | Mark Russinovich presents next gen app development & deployment (Microsoft Ignite)](https://www.youtube.com/watch?v=LAUDVk8PaCY): 2019-11-14
 - [Learn all about Distributed Application Runtime (Dapr), Part 1 | Azure Friday](https://www.youtube.com/watch?v=mPVnu4W0xzQ): 2019-10-25
+
+## 相关资料
+
+- [The Evolution of Distributed Systems on Kubernetes](https://www.slideshare.net/bibryam/evolution-of-distributed-systems-on-kubernetes) : Bilgin Ibryam, 讲的极好。强烈推荐
+- https://www.slideshare.net/AbhishekGupta126/tour-of-dapr?from_action=save
+- [The evolution of Distributed Systems](https://medium.com/microservices-learning/the-evolution-of-distributed-systems-fec4d35beffd): 另一个总结分布式系统演进的文章，比较全面，有很多典型的图片。

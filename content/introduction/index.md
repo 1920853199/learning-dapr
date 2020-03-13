@@ -7,8 +7,6 @@ description : "Dapr介绍"
 
 
 
-## 介绍
-
 ![](images/dapr-logo.png)
 
 ### Dapr是什么？
