@@ -33,7 +33,7 @@ Dapr github首页的介绍是：
 
 下图是 Dapr 的概念模型：
 
-![](images/dapr_conceptual_model.jpg)
+![](images/overview.png)
 
 > 以下内容来自：https://github.com/dapr/dapr
 
@@ -73,8 +73,9 @@ Dapr在线程和状态一致性模型方面很灵活。 如果愿意，可以利
 - 一致的服务到服务发现和调用
 - 选择加入状态模型：强大/最终的一致性，首次写入/最后写入获胜
 - 跨平台虚拟 actor
+- 密钥管理，从安全密钥库中提取密钥。
 - 限速
-- 使用OpenTelemetry的内置分布式跟踪
+- 内置可观测性支持
 - 使用专用的Operator和CRD在Kubernetes上原生运行
 - 通过HTTP和gRPC支持所有编程语言
 - 来自Azure，AWS，GCP的多云，开放式组件（绑定，发布-订阅，状态）
