@@ -64,6 +64,20 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 100
 
 [[menu.main]]
+	name   = "Quickstart"
+	identifier = "introduction-quickstart"
+	parent = "introduction"
+	url    = "/introduction/quickstart/"
+	weight = 110
+
+[[menu.main]]
+	name   = "概况"
+	identifier = "introduction-overview"
+	url    = "/introduction/overview/"
+	parent = "introduction"
+	weight = 130
+
+[[menu.main]]
 	name   = "官方文档"
 	identifier = "document"
 	url    = "/document/"
@@ -88,6 +102,20 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	identifier = "service-invoke"
 	url    = "/service-invoke/"
 	weight = 500
+
+[[menu.main]]
+	name   = "服务调用的文档"
+	identifier = "service-invoke-docs"
+	url    = "/service-invoke/docs/"
+	parent = "service-invoke"
+	weight = 510
+
+[[menu.main]]
+	name   = "服务调用的源码"
+	identifier = "service-invoke-sources"
+	url    = "/service-invoke/sources/"
+	parent = "service-invoke"
+	weight = 530
 
 [[menu.main]]
 	name   = "发布订阅消息"
