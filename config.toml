@@ -111,11 +111,18 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 510
 
 [[menu.main]]
+	name   = "服务调用的API"
+	identifier = "service-invoke-api"
+	url    = "/service-invoke/api/"
+	parent = "service-invoke"
+	weight = 520
+
+[[menu.main]]
 	name   = "服务调用的源码"
 	identifier = "service-invoke-sources"
 	url    = "/service-invoke/sources/"
 	parent = "service-invoke"
-	weight = 530
+	weight = 580
 
 [[menu.main]]
 	name   = "发布订阅消息"
