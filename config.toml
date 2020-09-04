@@ -118,6 +118,14 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 520
 
 [[menu.main]]
+	name   = "服务注册与服务发现"
+	identifier = "service-invoke-discovery"
+	url    = "/service-invoke/discovery/"
+	parent = "service-invoke"
+	weight = 530
+
+
+[[menu.main]]
 	name   = "服务调用的源码"
 	identifier = "service-invoke-sources"
 	url    = "/service-invoke/sources/"
