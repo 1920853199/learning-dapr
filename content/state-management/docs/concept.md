@@ -3,38 +3,47 @@ date: 2020-02-01T11:00:00+08:00
 title: 状态管理的概念
 menu:
   main:
-    parent: "state-management"
-weight: 801
+    parent: "state-management-docs"
+weight: 811
 description : "Dapr状态管理的概念"
 ---
 
-> 内容节选自：https://github.com/dapr/docs/blob/master/concepts/state-management/state-management.md
+> 内容节选自：https://github.com/dapr/docs/blob/master/concepts/state-management/README.md
 
-Dapr使您可以轻松地将键/值数据存储在所选存储中。
+Dapr为状态管理提供了键/值存储API。当微服务使用状态管理时，它可以使用这些API来使用任何支持的状态存储，而不需要添加或学习第三方SDK。
+
+当使用状态管理时，应用还可以使用其他一些功能，因为自己构建的功能会很复杂，容易出错，比如：
+
+- 分布式并发和数据一致性
+- 重试策略
+- 批量CRUD操作
+
+状态管理的高层架构图见下图：
 
 ![](images/state_management.png)
 
 ### 状态管理API
 
-Dapr通过简单的状态API为应用带来了可靠的状态管理。开发人员可以使用此API通过键检索，保存和删除状态。
+开发者可以通过使用状态管理API来检索、保存和删除状态值，只需提供键。
 
-Dapr数据存储是可插拔的。Dapr 自开即用的自带 [Redis](https://redis.io/) 。它允许您插入其他数据存储，例如 [Azure CosmosDB](https://azure.microsoft.com/services/cosmos-db/)，[SQL Server](https://azure.microsoft.com/services/sql-database/)，[AWS DynamoDB](https://aws.amazon.com/DynamoDB)，[GCP Cloud Spanner](https://cloud.google.com/spanner)和[Cassandra](http://cassandra.apache.org/)。
+Dapr数据存储是通过组件实现。Dapr 自开即用的自带 [Redis](https://redis.io/) ，用于在自主托管模式本地开发。Dapr允许您插入其他数据存储，例如 [Azure CosmosDB](https://azure.microsoft.com/services/cosmos-db/)，[SQL Server](https://azure.microsoft.com/services/sql-database/)，[AWS DynamoDB](https://aws.amazon.com/DynamoDB)，[GCP Cloud Spanner](https://cloud.google.com/spanner)和[Cassandra](http://cassandra.apache.org/)。
 
-> **注意：** Dapr为状态的 key 添加前缀，前缀为当前Dapr实例/sidecar的ID。这允许多个 Dapr 实例共享同一状态存储。
+> **注意：** Dapr为状态的 key 添加前缀，前缀为当前Dapr实例的ID。这允许多个 Dapr 实例共享同一状态存储。
 
 ### 状态存储的行为
 
-Dapr允许开发人员将附加元数据附加到状态操作请求，该元数据描述了对如何处理该请求的前缀。例如，您可以将并发要求，一致性需求和重试策略附加到任何状态操作请求。
+Dapr允许开发人员将额外的元数据附加到状态操作请求，该元数据描述了对如何处理该请求。例如，您可以将并发要求，一致性需求和重试策略附加到任何状态操作请求。
 
-默认情况下，您的应用应假定数据存储是 **最终一致** 的，并使用 “ **last-write-wins”** 并发模式。另一方面，如果确实将元数据附加到请求，则Dapr会将元数据与请求一起传递到状态存储，并期望数据存储满足请求。
+默认情况下，您的应用应假定数据存储是 **最终一致** 的，并使用 “ **last-write-wins”** 并发模式。另一方面，如果确实将元数据附加到请求，则Dapr会将元数据与请求一起传递到状态存储，并期望状态存储满足请求。
 
-并非所有存储都是等价的。为了确保应用的可移植性，您可以查询存储库的功能，并使代码适应于不同存储的功能。
+并非所有存储都是等价的。为了确保应用的可移植性，您可以查询存储的功能，并使代码适应于不同存储的功能。
 
 下表总结了现有数据存储实现的功能。
 
 | 商店          | 强一致的写入 | 强一致的读取 | ETag |
 | ------------- | ------------ | ------------ | ---- |
 | Cosmos DB     | 是           | 是           | 是   |
+| PostgreSQL    | 是           | 是           | 是   |
 | Redis         | 是           | 是           | 是   |
 | Redis（集群） | 是           | 否           | 是   |
 | SQL server    | 是           | 是           | 是   |

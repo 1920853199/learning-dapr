@@ -172,6 +172,28 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 800
 
 [[menu.main]]
+	name   = "状态管理的文档"
+	identifier = "state-management-docs"
+	url    = "/state-management/docs/"
+	parent = "state-management"
+	weight = 810
+
+[[menu.main]]
+	name   = "状态管理的API"
+	identifier = "state-management-api"
+	url    = "/state-management/api/"
+	parent = "state-management"
+	weight = 820
+
+[[menu.main]]
+	name   = "状态管理的源码"
+	identifier = "state-management-sources"
+	url    = "/state-management/sources/"
+	parent = "state-management"
+	weight = 860
+
+
+[[menu.main]]
 	name   = "分布式追踪"
 	identifier = "distributed-tracing"
 	url    = "/distributed-tracing/"
