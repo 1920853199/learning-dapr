@@ -145,6 +145,27 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 700
 
 [[menu.main]]
+	name   = "资源绑定的文档"
+	identifier = "resource-binding-docs"
+	url    = "/resource-binding/docs/"
+	parent = "resource-binding"
+	weight = 710
+
+[[menu.main]]
+	name   = "资源绑定的API"
+	identifier = "resource-binding-api"
+	url    = "/resource-binding/api/"
+	parent = "resource-binding"
+	weight = 720
+
+[[menu.main]]
+	name   = "资源绑定的源码"
+	identifier = "resource-binding-sources"
+	url    = "/resource-binding/sources/"
+	parent = "resource-binding"
+	weight = 780
+
+[[menu.main]]
 	name   = "状态管理"
 	identifier = "state-management"
 	url    = "/state-management/"

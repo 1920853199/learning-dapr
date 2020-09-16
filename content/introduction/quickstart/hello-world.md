@@ -19,16 +19,25 @@ https://github.com/dapr/quickstarts/tree/master/hello-world
 按照 Prerequisites 的要求安装：
 
 - docker
-	- ubuntu 安装方法：https://docs.docker.com/engine/install/ubuntu/
-
+	
+- ubuntu 安装方法：https://docs.docker.com/engine/install/ubuntu/
+	- mac 安装方法：`brew cask install docker`  (执行前先开启一下代理，否则速度很慢)，完成后启动docker程序会继续安装。
+	
 - nodejs
 
-	```bash
-	sudo apt update
-	sudo apt install nodejs npm
-	```
+  ```bash
+  # ubuntu下
+  sudo apt update
+  sudo apt install nodejs npm
+  
+  # mac下
+  brew install nodejs
+  ```
 
-- python3.8： ubuntu 20.04自带
+- python3.8： 
+
+  - ubuntu 20.04自带
+  - macos自带
 
 ### 安装并初始化dapr
 

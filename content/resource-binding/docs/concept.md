@@ -3,8 +3,8 @@ date: 2020-02-01T11:00:00+08:00
 title: 资源绑定的概念
 menu:
   main:
-    parent: "resource-binding"
-weight: 701
+    parent: "resource-binding-docs"
+weight: 711
 description : "Dapr 资源绑定的概念"
 ---
 
