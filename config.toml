@@ -192,6 +192,12 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	parent = "state-management"
 	weight = 860
 
+[[menu.main]]
+	name   = "状态管理的高级特性"
+	identifier = "state-management-advanced"
+	url    = "/state-management/advanced/"
+	parent = "state-management"
+	weight = 880
 
 [[menu.main]]
 	name   = "分布式追踪"
