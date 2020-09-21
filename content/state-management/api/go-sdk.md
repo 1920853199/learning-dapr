@@ -12,58 +12,73 @@ description : "Dapr状态管理的go sdk定义"
 
 https://github.com/dapr/go-sdk 
 
-要在另一个使用Dapr sidecar运行的服务上调用特定的方法，Dapr客户端提供了两个选项。
-
-调用一个没有任何数据的服务：
+对于简单场景，只要给出 store name / key / data 就好了：
 
 ```go
-resp, err = client.InvokeService(ctx, "service-name", "method-name") 
-```
+ctx := context.Background()
+data := []byte("hello")
+store := "my-store" // defined in the component YAML 
 
-还有带数据调用服务：
-
-```
-content := &DataContent{
-    ContentType: "application/json",
-    Data:        []byte(`{ "id": "a123", "value": "demo", "valid": true }`)
+// save state with the key key1
+if err := client.SaveState(ctx, store, "key1", data); err != nil {
+    panic(err)
 }
 
-resp, err := client.InvokeServiceWithContent(ctx, "service-name", "method-name", content)
-```
+// get state for key key1
+item, err := client.GetState(ctx, store, "key1")
+if err != nil {
+    panic(err)
+}
+fmt.Printf("data [key:%s etag:%s]: %s", item.Key, item.Etag, string(item.Value))
 
-### go sdk提供的API
-
-https://github.com/dapr/go-sdk/blob/d6de57c71a1d3c7ce3a3b81385609dfba18a1a18/client/invoke.go
-
-go sdk在 client 上封装了两个方法用于服务调用，InvokeService方法用来发送不带数据的请求：
-
-```go
-// InvokeService invokes service without raw data ([]byte).
-func (c *GRPCClient) InvokeService(ctx context.Context, serviceID, method string) (out []byte, err error) {
-...
+// delete state for key key1
+if err := client.DeleteState(ctx, store, "key1"); err != nil {
+    panic(err)
 }
 ```
 
-InvokeServiceWithContent方法用来发现带数据的请求：
+### get state
+
+简单get方法，使用默认的并发选项：
 
 ```go
-// InvokeServiceWithContent invokes service without content (data + content type).
-func (c *GRPCClient) InvokeServiceWithContent(ctx context.Context, serviceID, method string, content *DataContent) (out []byte, err error) {
-......
+// GetState retreaves state from specific store using default consistency option.
+func (c *GRPCClient) GetState(ctx context.Context, store, key string) (item *StateItem, err error) {
+	return c.GetStateWithConsistency(ctx, store, key, StateConsistencyStrong)
 }
 ```
 
-DataContent 的定义：
+但，默认并发选项是 StateConsistencyStrong，强一致性。
+
+完整的get 方法：
 
 ```go
-// DataContent the service invocation content
-type DataContent struct {
-	// Data is the input data
-	Data []byte
-	// ContentType is the type of the data content
-	ContentType string
+// GetStateWithConsistency retreaves state from specific store using provided state consistency.
+func (c *GRPCClient) GetStateWithConsistency(ctx context.Context, store, key string, sc StateConsistency) (item *StateItem, err error) {
+	if store == "" {
+		return nil, errors.New("nil store")
+	}
+	if key == "" {
+		return nil, errors.New("nil key")
+	}
+
+	req := &pb.GetStateRequest{
+		StoreName:   store,
+		Key:         key,
+		Consistency: (v1.StateOptions_StateConsistency(sc)),
+	}
+
+	result, err := c.protoClient.GetState(authContext(ctx), req)
+	if err != nil {
+		return nil, errors.Wrap(err, "error getting state")
+	}
+
+	return &StateItem{
+		Etag:  result.Etag,
+		Key:   key,
+		Value: result.Data,
+	}, nil
 }
 ```
 
-
-
+基本上也没做什么。

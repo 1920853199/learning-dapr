@@ -12,72 +12,37 @@ description : "Dapr状态管理的go client定义"
 
 https://github.com/dapr/dapr/blob/11741c6cd697e08b2e776943e61bb2e3388c85a8/pkg/proto/runtime/v1/dapr.pb.go
 
+这是根据proto生成的go代码
+
 ```go
-// DaprClient is the client API for Dapr service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DaprClient interface {
-	// Invokes a method on a remote Dapr app.
-	InvokeService(ctx context.Context, in *InvokeServiceRequest, opts ...grpc.CallOption) (*v1.InvokeResponse, error)
-	......s
-}
-```
-DaprClient 的实现：
-
-```go
-type daprClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewDaprClient(cc *grpc.ClientConn) DaprClient {
-	return &daprClient{cc}
-}
-
-func (c *daprClient) InvokeService(ctx context.Context, in *InvokeServiceRequest, opts ...grpc.CallOption) (*v1.InvokeResponse, error) {
-	out := new(v1.InvokeResponse)
-	err := c.cc.Invoke(ctx, "/dapr.proto.runtime.v1.Dapr/InvokeService", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-```
-
-
-
-### AppCallbackClient
-
-https://github.com/dapr/dapr/blob/11741c6cd697e08b2e776943e61bb2e3388c85a8/pkg/proto/runtime/v1/appcallback.pb.go
-
-```go
-// AppCallbackClient is the client API for AppCallback service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AppCallbackClient interface {
-	// Invokes service method with InvokeRequest.
-	OnInvoke(ctx context.Context, in *v1.InvokeRequest, opts ...grpc.CallOption) (*v1.InvokeResponse, error)
+	// Gets the state for a specific key.
+	GetState(ctx context.Context, in *GetStateRequest, opts ...grpc.CallOption) (*GetStateResponse, error)
+	// Gets a bulk of state items for a list of keys
+	GetBulkState(ctx context.Context, in *GetBulkStateRequest, opts ...grpc.CallOption) (*GetBulkStateResponse, error)
+	// Saves the state for a specific key.
+	SaveState(ctx context.Context, in *SaveStateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	// Deletes the state for a specific key.
+	DeleteState(ctx context.Context, in *DeleteStateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	// Executes transactions for a specified store
+	ExecuteStateTransaction(ctx context.Context, in *ExecuteStateTransactionRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	......
 }
 ```
+### Get State
 
-AppCallbackClient 的实现：
+以 Get State 为例看 DaprClient 的实现：
 
 ```go
-type appCallbackClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewAppCallbackClient(cc *grpc.ClientConn) AppCallbackClient {
-	return &appCallbackClient{cc}
-}
-
-func (c *appCallbackClient) OnInvoke(ctx context.Context, in *v1.InvokeRequest, opts ...grpc.CallOption) (*v1.InvokeResponse, error) {
-	out := new(v1.InvokeResponse)
-	err := c.cc.Invoke(ctx, "/dapr.proto.runtime.v1.AppCallback/OnInvoke", in, out, opts...)
+func (c *daprClient) GetState(ctx context.Context, in *GetStateRequest, opts ...grpc.CallOption) (*GetStateResponse, error) {
+	out := new(GetStateResponse)
+	err := c.cc.Invoke(ctx, "/dapr.proto.runtime.v1.Dapr/GetState", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 ```
+
+只是简单调用远程方法。
 
