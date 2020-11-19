@@ -217,6 +217,36 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	url    = "/actors/"
 	weight = 1100
 
+[[menu.main]]
+	name   = "Daprd"
+	identifier = "daprd"
+	url    = "/daprd/"
+	weight = 2000
+
+[[menu.main]]
+	name   = "Injector"
+	identifier = "injector"
+	url    = "/injector/"
+	weight = 2100
+
+[[menu.main]]
+	name   = "Placement"
+	identifier = "placement"
+	url    = "/placement/"
+	weight = 2200
+
+[[menu.main]]
+	name   = "Sentry"
+	identifier = "sentry"
+	url    = "/sentry/"
+	weight = 2300
+
+[[menu.main]]
+	name   = "Operator"
+	identifier = "operator"
+	url    = "/operator/"
+	weight = 2400
+
 [blackfriday]
 	smartypants	= true
 	fractions = true

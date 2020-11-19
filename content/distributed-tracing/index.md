@@ -11,7 +11,7 @@ description : "Dapr的分布式追踪构建块"
 
 官方资料：
 
-- [Distributed Tracing Conception](https://github.com/dapr/docs/tree/master/concepts/distributed-tracing): 概念
+- [Distributed Tracing Conception](https://docs.dapr.io/concepts/observability-concept/): 概念
 
 
 
