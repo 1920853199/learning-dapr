@@ -1,10 +1,10 @@
 ---
 date: 2020-02-01T11:00:00+08:00
-title: 分布式追踪的概念
+title: Tracing
 menu:
   main:
-    parent: "distributed-tracing"
-weight: 901
+    parent: "distributed-tracing-docs"
+weight: 912
 description : "Dapr分布式追踪的概念"
 ---
 
@@ -23,7 +23,7 @@ Dapr 向 Dapr sidecar 中添加了 HTTP/gRPC 中间件（middleware）。中间�
 - 可配置和可扩展。通过利用 OpenTelemetry，可以将 Dapr 追踪配置为与流行的追踪后端一起使用，包括客户可能拥有的自定义后端。
 - OpenTelemetry 导出器被定义为一等公民的 Dapr 组件。可以同时定义并启用多个导出器。
 
-## W3C Correlation ID
+### W3C Correlation ID
 
 Dapr使用标准的W3C跟踪上下文头文件。对于HTTP请求，Dapr使用 `traceparent` header。对于gRPC请求，Dapr使用 `grpc-trace-bin` header。当请求到达时没有trace ID时，Dapr会创建新的ID。否则，它将沿着调用链传递跟踪ID。
 
@@ -35,27 +35,33 @@ Dapr使用标准的W3C跟踪上下文头文件。对于HTTP请求，Dapr使用 `
 
 ### 配置
 
-Dapr 跟踪由配置文件（在本地模式下）或Kubernetes配置对象（在Kubernetes模式下）配置。例如，以下配置对象启用分布式跟踪：
+Dapr使用OpenCensus定义的概率才样 ([probabilistic sampling](https://opencensus.io/tracing/sampling/probabilistic/)) 。采样率定义了tracing span被采样的概率，其值可以在0和1之间（包括）。默认采样率是0.0001（即每10,000个span中采样一个）。
+
+要改变默认的跟踪行为，请使用配置文件（在自托管模式下）或Kubernetes配置对象（在Kubernetes模式下）。例如，以下配置对象将采样率改为1（即每个span都会采样）。
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
 kind: Configuration
 metadata:
   name: tracing
+  namespace: default
 spec:
   tracing:
-    enabled: true
-    expandParams: true
-    includeBody: true
+    samplingRate: "1"
 ```
 
-Dapr 支持可插拔导出器（exporter），导出器由配置文件（在本地模式下）或Kubernetes自定义资源对象（在Kubernetes模式下）定义。例如，以下清单定义了一个 Zipkin 导出器：
+同样，将 samplingRate 改为 0 将完全禁用跟踪。
+
+有关如何在本地环境和Kubernetes环境中配置跟踪的更多细节，请参见[参考文档](https://docs.dapr.io/developing-applications/building-blocks/observability/tracing/#references)部分。
+
+Dapr支持可插拔的导出器，由配置文件（在自托管模式下）或Kubernetes自定义资源对象（在Kubernetes模式下）定义。例如，下面的清单(manifest)定义了一个Zipkin导出器。
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: zipkin
+  namespace: default
 spec:
   type: exporters.zipkin
   metadata:
@@ -65,7 +71,11 @@ spec:
     value: "http://zipkin.default.svc.cluster.local:9411/api/v2/spans"
 ```
 
+### 参考文档
 
+- [How-To: Setup Application Insights for distributed tracing with OpenTelemetry Collector](https://docs.dapr.io/operations/monitoring/open-telemetry-collector/)
+- [How-To: Set up Zipkin for distributed tracing](https://docs.dapr.io/operations/monitoring/zipkin/)
+- [W3C distributed tracing](https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/)
 
 
 

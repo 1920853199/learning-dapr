@@ -206,6 +206,13 @@ googleAnalytics = "c7442f5794ea2abb71c6ff05dc0b8779"
 	weight = 900
 
 [[menu.main]]
+	name   = "分布式追踪的文档"
+	identifier = "distributed-tracing-docs"
+	url    = "/distributed-tracing/docs/"
+	parent = "distributed-tracing"
+	weight = 910
+
+[[menu.main]]
 	name   = "安全"
 	identifier = "secrets"
 	url    = "/secrets/"
